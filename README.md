@@ -19,10 +19,6 @@ const hash = ChibiHash64.hash("Hello, world!", 0);
 // Using HashMap
 var map = ChibiHash64.HashMap([]const u8, i32).init(allocator);
 defer map.deinit();
-
-// Using HashSet
-var set = ChibiHash64.HashSet([]const u8).init(allocator);
-defer set.deinit();
 ```
 
 ## License
