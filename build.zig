@@ -23,7 +23,7 @@ pub fn build(b: *std.Build) void {
 
     // Create tests
     const main_tests = b.addTest(.{
-        .root_source_file = .{ .cwd_relative = "src/chibihash64_test.zig" },
+        .root_source_file = .{ .cwd_relative = "src/chibihash64.zig" },
         .target = target,
         .optimize = optimize,
     });
