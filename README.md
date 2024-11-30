@@ -4,7 +4,7 @@ A Zig port of [ChibiHash64](https://github.com/N-R-K/ChibiHash) - a small, fast 
 
 ## Features
 - Simple 64-bit hash function
-- HashMap and HashSet implementations
+- HashMap implementation
 - Thoroughly tested with known test vectors
 
 ## Usage
