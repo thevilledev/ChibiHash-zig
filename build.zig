@@ -68,4 +68,32 @@ pub fn build(b: *std.Build) void {
     const docs_step = b.step("docs", "Generate library documentation");
     docs_step.dependOn(&lib_v1_docs.step);
     docs_step.dependOn(&lib_v2_docs.step);
+
+    // Create example executable
+    const example = b.addExecutable(.{
+        .name = "example",
+        .root_source_file = .{ .cwd_relative = "example/example.zig" },
+        .target = target,
+        .optimize = optimize,
+    });
+
+    // Create modules
+    const chibihash64_v1 = b.addModule("chibihash64_v1", .{
+        .root_source_file = .{ .cwd_relative = "src/chibihash64_v1.zig" },
+    });
+    const chibihash64_v2 = b.addModule("chibihash64_v2", .{
+        .root_source_file = .{ .cwd_relative = "src/chibihash64_v2.zig" },
+    });
+
+    // Add module dependencies to example
+    example.root_module.addImport("chibihash64_v1", chibihash64_v1);
+    example.root_module.addImport("chibihash64_v2", chibihash64_v2);
+
+    // Install the example
+    b.installArtifact(example);
+
+    // Create a run step for the example
+    const run_example = b.addRunArtifact(example);
+    const run_step = b.step("run-example", "Run the example program");
+    run_step.dependOn(&run_example.step);
 }
