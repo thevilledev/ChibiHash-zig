@@ -89,16 +89,15 @@ pub fn HashContext(comptime T: type) type {
         pub fn hash(self: @This(), key: T) u64 {
             _ = self;
             switch (@typeInfo(T)) {
-                .Pointer => |ptr| {
-                    if (ptr.size == .Slice and ptr.child == u8) {
+                .pointer => |ptr| {
+                    if (ptr.size == .slice and ptr.child == u8) {
                         return chibihash64(key, 0);
                     }
                 },
                 else => {},
             }
-            var bytes: [@sizeOf(T)]u8 = undefined;
-            std.mem.writeIntLittle(T, &bytes, key);
-            return chibihash64(&bytes, 0);
+            const bytes = std.mem.asBytes(&key);
+            return chibihash64(bytes, 0);
         }
 
         pub fn eql(self: @This(), a: T, b: T) bool {
