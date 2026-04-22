@@ -20,7 +20,7 @@ inline fn rotl(x: u64, n: u6) u64 {
 pub fn chibihash64(input: []const u8, seed: u64) u64 {
     const K: u64 = 0x2B7E151628AED2A7; // digits of e
     const seed2 = rotl(seed -% K, 15) +% rotl(seed -% K, 47);
-    const k_squared_xor_k = @as(u64, @intCast((@as(u128, K) *% K) % (1 << 64))) ^ K;
+    const k_squared_xor_k = K *% K ^ K;
     var h = [_]u64{ seed, seed +% K, seed2, seed2 +% k_squared_xor_k };
 
     var p = input;
