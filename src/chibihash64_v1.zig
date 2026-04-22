@@ -91,15 +91,15 @@ pub fn HashContext(comptime T: type) type {
             switch (@typeInfo(T)) {
                 .pointer => |ptr| {
                     if (ptr.size == .slice and ptr.child == u8) {
-                        // Special case for []const u8 and []u8
                         return chibihash64(key, 0);
                     }
                 },
                 else => {},
             }
-            // For other types, hash their bytes
-            const bytes = std.mem.asBytes(&key);
-            return chibihash64(bytes, 0);
+            // Use toBytes to get a by-value byte representation, avoiding
+            // forcing the key to a stack slot via pointer indirection.
+            const bytes = std.mem.toBytes(key);
+            return chibihash64(&bytes, 0);
         }
 
         pub fn eql(self: @This(), a: T, b: T) bool {

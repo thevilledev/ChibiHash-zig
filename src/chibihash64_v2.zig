@@ -92,8 +92,10 @@ pub fn HashContext(comptime T: type) type {
                 },
                 else => {},
             }
-            const bytes = std.mem.asBytes(&key);
-            return chibihash64(bytes, 0);
+            // Use toBytes to get a by-value byte representation, avoiding
+            // forcing the key to a stack slot via pointer indirection.
+            const bytes = std.mem.toBytes(key);
+            return chibihash64(&bytes, 0);
         }
 
         pub fn eql(self: @This(), a: T, b: T) bool {
