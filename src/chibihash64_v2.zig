@@ -13,8 +13,7 @@ inline fn load64le(p: []const u8) u64 {
 
 /// Rotate left
 inline fn rotl(x: u64, n: u6) u64 {
-    const shift = @as(u6, @intCast(64 -% @as(u7, n)));
-    return (x << n) | (x >> shift);
+    return std.math.rotl(u64, x, n);
 }
 
 /// Compute 64-bit hash of input data with optional seed (V2 algorithm)
