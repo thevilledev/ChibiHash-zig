@@ -3,15 +3,12 @@ const testing = std.testing;
 
 /// Load 32-bit little endian value from byte slice
 inline fn load32le(p: []const u8) u64 {
-    return @as(u64, p[0]) |
-        @as(u64, p[1]) << 8 |
-        @as(u64, p[2]) << 16 |
-        @as(u64, p[3]) << 24;
+    return std.mem.readInt(u32, p[0..4], .little);
 }
 
 /// Load 64-bit little endian value from byte slice
 inline fn load64le(p: []const u8) u64 {
-    return load32le(p[0..4]) | (load32le(p[4..8]) << 32);
+    return std.mem.readInt(u64, p[0..8], .little);
 }
 
 /// Rotate left

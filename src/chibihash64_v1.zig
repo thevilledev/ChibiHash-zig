@@ -3,14 +3,7 @@ const testing = std.testing;
 
 /// Load 64-bit little endian value from byte slice
 inline fn load64le(p: []const u8) u64 {
-    return @as(u64, p[0]) << 0 |
-        @as(u64, p[1]) << 8 |
-        @as(u64, p[2]) << 16 |
-        @as(u64, p[3]) << 24 |
-        @as(u64, p[4]) << 32 |
-        @as(u64, p[5]) << 40 |
-        @as(u64, p[6]) << 48 |
-        @as(u64, p[7]) << 56;
+    return std.mem.readInt(u64, p[0..8], .little);
 }
 
 /// Compute 64-bit hash of input data with optional seed
