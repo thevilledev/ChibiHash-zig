@@ -18,8 +18,8 @@ pub fn chibihash64(input: []const u8, seed: u64) u64 {
 
     // Process 32-byte chunks
     while (l >= 32) : (l -= 32) {
-        var i: usize = 0;
-        while (i < 4) : (i += 1) {
+        comptime var i: usize = 0;
+        inline while (i < 4) : (i += 1) {
             const lane = load64le(k[i * 8 ..][0..8]);
             h[i] ^= lane;
             h[i] *%= P1;
