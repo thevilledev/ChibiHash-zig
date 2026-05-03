@@ -4,7 +4,7 @@ const ChibiHash64v2 = @import("chibihash64_v2");
 
 pub fn main() !void {
     // Get an allocator
-    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
+    var gpa: std.heap.DebugAllocator(.{}) = .init;
     defer _ = gpa.deinit();
     const allocator = gpa.allocator();
 

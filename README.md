@@ -15,18 +15,18 @@ All credit for the algorithm goes to [N-R-K](https://github.com/N-R-K).
 
 ```
 const std = @import("std");
-const ChibiHash64v1 = @import("chibihash64_v1.zig");
-const ChibiHash64v2 = @import("chibihash64_v2.zig");
+const ChibiHash64v1 = @import("chibihash64_v1");
+const ChibiHash64v2 = @import("chibihash64_v2");
 
 // Basic hashing v1
-const hash = ChibiHash64v1.hash("Hello, world!", 0);
+const hash_v1 = ChibiHash64v1.chibihash64("Hello, world!", 0);
 
 // Using HashMap v1
 var map = ChibiHash64v1.HashMap([]const u8, i32).init(allocator);
 defer map.deinit();
 
 // Basic hashing v2
-const hash = ChibiHash64v2.hash("Hello, world!", 0);
+const hash_v2 = ChibiHash64v2.chibihash64("Hello, world!", 0);
 
 // Using HashMap v2
 var map = ChibiHash64v2.HashMap([]const u8, i32).init(allocator);
